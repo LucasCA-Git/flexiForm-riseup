@@ -1,17 +1,31 @@
 {
-  "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
+  "name": "flexiform-riseup",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Dynamic form generator library using React and JSON Schema.",
+  
+  "main": "./dist/dynamic-form-lib.umd.js",   
+  "module": "./dist/dynamic-form-lib.es.js",
+  "files": [
+    "dist"
+  ],
+  
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite",        
+    "build": "vite build", 
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && git add dist -f && git commit -m 'Deploy GitHub Pages' && git subtree push --prefix dist origin gh-pages" 
   },
+  
   "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "@rjsf/core": "^5.24.13",
+    "@rjsf/validator-ajv8": "^5.24.13"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
@@ -22,6 +36,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }
