@@ -1,7 +1,7 @@
-import te from "react";
-import ne from "@rjsf/core";
-import oe from "@rjsf/validator-ajv8";
-var p = { exports: {} }, b = {};
+import oe, { useState as C, useMemo as ne } from "react";
+import ae from "@rjsf/core";
+import se from "@rjsf/validator-ajv8";
+var T = { exports: {} }, x = {};
 /**
  * @license React
  * react-jsx-runtime.production.js
@@ -11,29 +11,29 @@ var p = { exports: {} }, b = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var D;
-function ae() {
-  if (D) return b;
-  D = 1;
-  var u = Symbol.for("react.transitional.element"), d = Symbol.for("react.fragment");
-  function i(f, a, s) {
-    var m = null;
-    if (s !== void 0 && (m = "" + s), a.key !== void 0 && (m = "" + a.key), "key" in a) {
-      s = {};
-      for (var _ in a)
-        _ !== "key" && (s[_] = a[_]);
-    } else s = a;
-    return a = s.ref, {
-      $$typeof: u,
-      type: f,
-      key: m,
-      ref: a !== void 0 ? a : null,
-      props: s
+var M;
+function ie() {
+  if (M) return x;
+  M = 1;
+  var i = Symbol.for("react.transitional.element"), p = Symbol.for("react.fragment");
+  function m(d, n, l) {
+    var u = null;
+    if (l !== void 0 && (u = "" + l), n.key !== void 0 && (u = "" + n.key), "key" in n) {
+      l = {};
+      for (var v in n)
+        v !== "key" && (l[v] = n[v]);
+    } else l = n;
+    return n = l.ref, {
+      $$typeof: i,
+      type: d,
+      key: u,
+      ref: n !== void 0 ? n : null,
+      props: l
     };
   }
-  return b.Fragment = d, b.jsx = i, b.jsxs = i, b;
+  return x.Fragment = p, x.jsx = m, x.jsxs = m, x;
 }
-var R = {};
+var S = {};
 /**
  * @license React
  * react-jsx-runtime.development.js
@@ -43,125 +43,125 @@ var R = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var I;
-function se() {
-  return I || (I = 1, process.env.NODE_ENV !== "production" && (function() {
-    function u(e) {
+var U;
+function le() {
+  return U || (U = 1, process.env.NODE_ENV !== "production" && (function() {
+    function i(e) {
       if (e == null) return null;
       if (typeof e == "function")
-        return e.$$typeof === K ? null : e.displayName || e.name || null;
+        return e.$$typeof === ee ? null : e.displayName || e.name || null;
       if (typeof e == "string") return e;
       switch (e) {
-        case T:
+        case w:
           return "Fragment";
         case z:
           return "Profiler";
-        case J:
+        case V:
           return "StrictMode";
-        case H:
-          return "Suspense";
         case B:
+          return "Suspense";
+        case Z:
           return "SuspenseList";
-        case Q:
+        case K:
           return "Activity";
       }
       if (typeof e == "object")
         switch (typeof e.tag == "number" && console.error(
           "Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."
         ), e.$$typeof) {
-          case q:
+          case y:
             return "Portal";
-          case G:
-            return (e.displayName || "Context") + ".Provider";
-          case V:
-            return (e._context.displayName || "Context") + ".Consumer";
           case X:
+            return (e.displayName || "Context") + ".Provider";
+          case G:
+            return (e._context.displayName || "Context") + ".Consumer";
+          case H:
             var r = e.render;
             return e = e.displayName, e || (e = r.displayName || r.name || "", e = e !== "" ? "ForwardRef(" + e + ")" : "ForwardRef"), e;
-          case Z:
-            return r = e.displayName || null, r !== null ? r : u(e.type) || "Memo";
-          case P:
+          case Q:
+            return r = e.displayName || null, r !== null ? r : i(e.type) || "Memo";
+          case F:
             r = e._payload, e = e._init;
             try {
-              return u(e(r));
+              return i(e(r));
             } catch {
             }
         }
       return null;
     }
-    function d(e) {
+    function p(e) {
       return "" + e;
     }
-    function i(e) {
+    function m(e) {
       try {
-        d(e);
+        p(e);
         var r = !1;
       } catch {
         r = !0;
       }
       if (r) {
         r = console;
-        var t = r.error, n = typeof Symbol == "function" && Symbol.toStringTag && e[Symbol.toStringTag] || e.constructor.name || "Object";
-        return t.call(
+        var o = r.error, a = typeof Symbol == "function" && Symbol.toStringTag && e[Symbol.toStringTag] || e.constructor.name || "Object";
+        return o.call(
           r,
           "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.",
-          n
-        ), d(e);
+          a
+        ), p(e);
       }
     }
-    function f(e) {
-      if (e === T) return "<>";
-      if (typeof e == "object" && e !== null && e.$$typeof === P)
+    function d(e) {
+      if (e === w) return "<>";
+      if (typeof e == "object" && e !== null && e.$$typeof === F)
         return "<...>";
       try {
-        var r = u(e);
+        var r = i(e);
         return r ? "<" + r + ">" : "<...>";
       } catch {
         return "<...>";
       }
     }
-    function a() {
-      var e = k.A;
+    function n() {
+      var e = O.A;
       return e === null ? null : e.getOwner();
     }
-    function s() {
+    function l() {
       return Error("react-stack-top-frame");
     }
-    function m(e) {
-      if (j.call(e, "key")) {
+    function u(e) {
+      if (D.call(e, "key")) {
         var r = Object.getOwnPropertyDescriptor(e, "key").get;
         if (r && r.isReactWarning) return !1;
       }
       return e.key !== void 0;
     }
-    function _(e, r) {
-      function t() {
-        y || (y = !0, console.error(
+    function v(e, r) {
+      function o() {
+        I || (I = !0, console.error(
           "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)",
           r
         ));
       }
-      t.isReactWarning = !0, Object.defineProperty(e, "key", {
-        get: t,
+      o.isReactWarning = !0, Object.defineProperty(e, "key", {
+        get: o,
         configurable: !0
       });
     }
-    function M() {
-      var e = u(this.type);
-      return N[e] || (N[e] = !0, console.error(
+    function j() {
+      var e = i(this.type);
+      return Y[e] || (Y[e] = !0, console.error(
         "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."
       )), e = this.props.ref, e !== void 0 ? e : null;
     }
-    function W(e, r, t, n, l, c, w, A) {
-      return t = c.ref, e = {
-        $$typeof: x,
+    function _(e, r, o, a, h, f, k, A) {
+      return o = f.ref, e = {
+        $$typeof: g,
         type: e,
         key: r,
-        props: c,
-        _owner: l
-      }, (t !== void 0 ? t : null) !== null ? Object.defineProperty(e, "ref", {
+        props: f,
+        _owner: h
+      }, (o !== void 0 ? o : null) !== null ? Object.defineProperty(e, "ref", {
         enumerable: !1,
-        get: M
+        get: j
       }) : Object.defineProperty(e, "ref", { enumerable: !1, value: null }), e._store = {}, Object.defineProperty(e._store, "validated", {
         configurable: !1,
         enumerable: !1,
@@ -176,7 +176,7 @@ function se() {
         configurable: !1,
         enumerable: !1,
         writable: !0,
-        value: w
+        value: k
       }), Object.defineProperty(e, "_debugTask", {
         configurable: !1,
         enumerable: !1,
@@ -184,125 +184,248 @@ function se() {
         value: A
       }), Object.freeze && (Object.freeze(e.props), Object.freeze(e)), e;
     }
-    function g(e, r, t, n, l, c, w, A) {
-      var o = r.children;
-      if (o !== void 0)
-        if (n)
-          if (ee(o)) {
-            for (n = 0; n < o.length; n++)
-              h(o[n]);
-            Object.freeze && Object.freeze(o);
+    function R(e, r, o, a, h, f, k, A) {
+      var s = r.children;
+      if (s !== void 0)
+        if (a)
+          if (re(s)) {
+            for (a = 0; a < s.length; a++)
+              c(s[a]);
+            Object.freeze && Object.freeze(s);
           } else
             console.error(
               "React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead."
             );
-        else h(o);
-      if (j.call(r, "key")) {
-        o = u(e);
-        var E = Object.keys(r).filter(function(re) {
-          return re !== "key";
+        else c(s);
+      if (D.call(r, "key")) {
+        s = i(e);
+        var E = Object.keys(r).filter(function(te) {
+          return te !== "key";
         });
-        n = 0 < E.length ? "{key: someKey, " + E.join(": ..., ") + ": ...}" : "{key: someKey}", F[o + n] || (E = 0 < E.length ? "{" + E.join(": ..., ") + ": ...}" : "{}", console.error(
+        a = 0 < E.length ? "{key: someKey, " + E.join(": ..., ") + ": ...}" : "{key: someKey}", $[s + a] || (E = 0 < E.length ? "{" + E.join(": ..., ") + ": ...}" : "{}", console.error(
           `A props object containing a "key" prop is being spread into JSX:
   let props = %s;
   <%s {...props} />
 React keys must be passed directly to JSX without using spread:
   let props = %s;
   <%s key={someKey} {...props} />`,
-          n,
-          o,
+          a,
+          s,
           E,
-          o
-        ), F[o + n] = !0);
+          s
+        ), $[s + a] = !0);
       }
-      if (o = null, t !== void 0 && (i(t), o = "" + t), m(r) && (i(r.key), o = "" + r.key), "key" in r) {
-        t = {};
-        for (var O in r)
-          O !== "key" && (t[O] = r[O]);
-      } else t = r;
-      return o && _(
-        t,
-        typeof e == "function" ? e.displayName || e.name || "Unknown" : e
-      ), W(
-        e,
+      if (s = null, o !== void 0 && (m(o), s = "" + o), u(r) && (m(r.key), s = "" + r.key), "key" in r) {
+        o = {};
+        for (var P in r)
+          P !== "key" && (o[P] = r[P]);
+      } else o = r;
+      return s && v(
         o,
-        c,
-        l,
-        a(),
-        t,
-        w,
+        typeof e == "function" ? e.displayName || e.name || "Unknown" : e
+      ), _(
+        e,
+        s,
+        f,
+        h,
+        n(),
+        o,
+        k,
         A
       );
     }
-    function h(e) {
-      typeof e == "object" && e !== null && e.$$typeof === x && e._store && (e._store.validated = 1);
+    function c(e) {
+      typeof e == "object" && e !== null && e.$$typeof === g && e._store && (e._store.validated = 1);
     }
-    var v = te, x = Symbol.for("react.transitional.element"), q = Symbol.for("react.portal"), T = Symbol.for("react.fragment"), J = Symbol.for("react.strict_mode"), z = Symbol.for("react.profiler"), V = Symbol.for("react.consumer"), G = Symbol.for("react.context"), X = Symbol.for("react.forward_ref"), H = Symbol.for("react.suspense"), B = Symbol.for("react.suspense_list"), Z = Symbol.for("react.memo"), P = Symbol.for("react.lazy"), Q = Symbol.for("react.activity"), K = Symbol.for("react.client.reference"), k = v.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, j = Object.prototype.hasOwnProperty, ee = Array.isArray, S = console.createTask ? console.createTask : function() {
+    var b = oe, g = Symbol.for("react.transitional.element"), y = Symbol.for("react.portal"), w = Symbol.for("react.fragment"), V = Symbol.for("react.strict_mode"), z = Symbol.for("react.profiler"), G = Symbol.for("react.consumer"), X = Symbol.for("react.context"), H = Symbol.for("react.forward_ref"), B = Symbol.for("react.suspense"), Z = Symbol.for("react.suspense_list"), Q = Symbol.for("react.memo"), F = Symbol.for("react.lazy"), K = Symbol.for("react.activity"), ee = Symbol.for("react.client.reference"), O = b.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, D = Object.prototype.hasOwnProperty, re = Array.isArray, N = console.createTask ? console.createTask : function() {
       return null;
     };
-    v = {
+    b = {
       react_stack_bottom_frame: function(e) {
         return e();
       }
     };
-    var y, N = {}, C = v.react_stack_bottom_frame.bind(
-      v,
-      s
-    )(), Y = S(f(s)), F = {};
-    R.Fragment = T, R.jsx = function(e, r, t, n, l) {
-      var c = 1e4 > k.recentlyCreatedOwnerStacks++;
-      return g(
+    var I, Y = {}, J = b.react_stack_bottom_frame.bind(
+      b,
+      l
+    )(), L = N(d(l)), $ = {};
+    S.Fragment = w, S.jsx = function(e, r, o, a, h) {
+      var f = 1e4 > O.recentlyCreatedOwnerStacks++;
+      return R(
         e,
         r,
-        t,
+        o,
         !1,
-        n,
-        l,
-        c ? Error("react-stack-top-frame") : C,
-        c ? S(f(e)) : Y
+        a,
+        h,
+        f ? Error("react-stack-top-frame") : J,
+        f ? N(d(e)) : L
       );
-    }, R.jsxs = function(e, r, t, n, l) {
-      var c = 1e4 > k.recentlyCreatedOwnerStacks++;
-      return g(
+    }, S.jsxs = function(e, r, o, a, h) {
+      var f = 1e4 > O.recentlyCreatedOwnerStacks++;
+      return R(
         e,
         r,
-        t,
+        o,
         !0,
-        n,
-        l,
-        c ? Error("react-stack-top-frame") : C,
-        c ? S(f(e)) : Y
+        a,
+        h,
+        f ? Error("react-stack-top-frame") : J,
+        f ? N(d(e)) : L
       );
     };
-  })()), R;
+  })()), S;
 }
-var $;
-function ue() {
-  return $ || ($ = 1, process.env.NODE_ENV === "production" ? p.exports = ae() : p.exports = se()), p.exports;
+var W;
+function ce() {
+  return W || (W = 1, process.env.NODE_ENV === "production" ? T.exports = ie() : T.exports = le()), T.exports;
 }
-var U = ue();
-const L = (u) => console.log.bind(console, u), ce = {
+var t = ce();
+const q = (i) => console.log.bind(console, i), ue = {
   bio: { "ui:widget": "textarea" },
   senha: { "ui:widget": "password" },
   password: { "ui:widget": "password" }
-}, me = (u) => {
-  const { schema: d, onSubmit: i, uiSchema: f = {}, formData: a, onChange: s } = u, m = {
-    ...ce,
-    ...f
+}, me = (i) => {
+  const { schema: p, onSubmit: m, uiSchema: d = {}, formData: n, onChange: l } = i, u = {
+    ...ue,
+    ...d
   };
-  return /* @__PURE__ */ U.jsx("div", { className: "flexiform-form-wrapper", children: /* @__PURE__ */ U.jsx(
-    ne,
+  return /* @__PURE__ */ t.jsx("div", { className: "flexiform-form-wrapper", children: /* @__PURE__ */ t.jsx(
+    ae,
     {
-      schema: d,
-      uiSchema: m,
-      formData: a,
-      validator: oe,
-      onChange: s,
-      onSubmit: i || L("Submitted (No Handler)"),
-      onError: L("Errors")
+      schema: p,
+      uiSchema: u,
+      formData: n,
+      validator: se,
+      onChange: l,
+      onSubmit: m || q("Submitted (No Handler)"),
+      onError: q("Errors")
     }
   ) });
-};
+}, de = {
+  title: "Formulário de Cadastro com Regras de Validação",
+  description: "Exemplo simples de formulário demonstrando campos obrigatórios, tamanho mínimo e padrões de formato.",
+  type: "object",
+  required: [
+    "nome",
+    "sobrenome",
+    "email"
+  ],
+  properties: {
+    nome: {
+      type: "string",
+      title: "Nome",
+      default: "Carlos",
+      minLength: 2,
+      description: "Deve ter pelo menos 2 caracteres."
+    },
+    sobrenome: {
+      type: "string",
+      title: "Sobrenome"
+    },
+    email: {
+      type: "string",
+      title: "Endereço de E-mail",
+      format: "email",
+      description: "Por favor, insira um endereço de e-mail válido."
+    },
+    idade: {
+      type: "integer",
+      title: "Idade",
+      minimum: 18,
+      description: "Idade mínima para cadastro é 18 anos."
+    },
+    bio: {
+      type: "string",
+      title: "Biografia"
+    },
+    senha: {
+      type: "string",
+      title: "Senha",
+      minLength: 8,
+      description: "A senha deve ter no mínimo 8 caracteres."
+    },
+    telefone: {
+      type: "string",
+      title: "Telefone (Somente Números)",
+      minLength: 10,
+      pattern: "^[0-9]*$",
+      description: "Formato: 10 dígitos, somente números (Ex: 1234567890)."
+    }
+  }
+}, fe = "flexiform_saved_submissions";
+function be() {
+  const [i, p] = C(JSON.stringify(de, null, 2)), [m, d] = C({}), [n, l] = C([]), u = ne(() => {
+    try {
+      return JSON.parse(i);
+    } catch {
+      return { type: "object", title: "JSON Inválido", properties: {} };
+    }
+  }, [i]), v = ({ formData: c }) => {
+    const b = (/* @__PURE__ */ new Date()).toLocaleString(), g = {
+      id: Date.now(),
+      timestamp: b,
+      schemaTitle: u.title || "Formulário Sem Título",
+      data: c,
+      schemaUsed: u
+    };
+    l((y) => [g, ...y]), d({}), console.log("Dados Submetidos e Salvos:", g.data), alert(`Formulário salvo com sucesso! (${b})`);
+  }, j = (c) => {
+    d(c.formData);
+  }, _ = u.title !== "JSON Inválido", R = () => {
+    window.prompt("Digite 'SIM' para apagar todo o histórico de formulários salvos:") === "SIM" && (l([]), localStorage.removeItem(fe));
+  };
+  return /* @__PURE__ */ t.jsxs("div", { className: "app-container", children: [
+    /* @__PURE__ */ t.jsx("h1", { children: "FlexiForm-RiseUp: Playground de Demonstração" }),
+    /* @__PURE__ */ t.jsxs("div", { className: "content-wrapper-triple", children: [
+      /* @__PURE__ */ t.jsxs("div", { className: "json-editor-panel panel", children: [
+        /* @__PURE__ */ t.jsx("h2", { children: "JSON Schema Editor" }),
+        /* @__PURE__ */ t.jsx(
+          "textarea",
+          {
+            value: i,
+            onChange: (c) => p(c.target.value),
+            style: { width: "100%", minHeight: "400px", fontFamily: "monospace" }
+          }
+        ),
+        !_ && /* @__PURE__ */ t.jsx("p", { style: { color: "red" }, children: "Erro: JSON Schema Inválido. Corrija a sintaxe." })
+      ] }),
+      /* @__PURE__ */ t.jsxs("div", { className: "form-preview-panel panel", children: [
+        /* @__PURE__ */ t.jsx("h2", { children: "Pré-visualização do Formulário" }),
+        _ ? /* @__PURE__ */ t.jsx(
+          me,
+          {
+            schema: u,
+            formData: m,
+            onChange: j,
+            onSubmit: v
+          }
+        ) : /* @__PURE__ */ t.jsx("p", { children: "O formulário não pode ser carregado devido a erros no JSON Schema." }),
+        /* @__PURE__ */ t.jsx("h3", { style: { marginTop: "20px" }, children: "Dados Atuais (formData)" }),
+        /* @__PURE__ */ t.jsx("pre", { style: { backgroundColor: "#f4f4f4", padding: "10px", overflowX: "auto", borderRadius: "4px" }, children: JSON.stringify(m, null, 2) })
+      ] }),
+      /* @__PURE__ */ t.jsxs("div", { className: "saved-forms-panel panel", children: [
+        /* @__PURE__ */ t.jsxs("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" }, children: [
+          /* @__PURE__ */ t.jsxs("h2", { children: [
+            "Formulários Salvos (",
+            n.length,
+            ")"
+          ] }),
+          n.length > 0 && /* @__PURE__ */ t.jsx("button", { onClick: R, style: { padding: "5px 10px", cursor: "pointer" }, children: "Limpar Todos" })
+        ] }),
+        /* @__PURE__ */ t.jsx("div", { className: "submissions-list", children: n.length === 0 ? /* @__PURE__ */ t.jsx("p", { children: "Nenhum formulário submetido foi salvo na memória." }) : n.map((c) => /* @__PURE__ */ t.jsxs("details", { className: "saved-form-item", children: [
+          /* @__PURE__ */ t.jsxs("summary", { children: [
+            /* @__PURE__ */ t.jsx("strong", { children: c.schemaTitle }),
+            " - ",
+            c.timestamp
+          ] }),
+          /* @__PURE__ */ t.jsx("pre", { style: { backgroundColor: "#fff", border: "1px dotted #ccc", padding: "10px", marginTop: "10px" }, children: JSON.stringify(c.data, null, 2) })
+        ] }, c.id)) })
+      ] })
+    ] })
+  ] });
+}
 export {
-  me as DynamicForm
+  me as DynamicForm,
+  be as FlexiFormPlayground
 };

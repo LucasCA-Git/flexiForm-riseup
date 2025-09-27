@@ -1,13 +1,15 @@
 {
-  "name": "flexiform-riseup",
+  "name": "flexiformriseup",
   "version": "1.0.0",
   "private": false,
   "description": "Dynamic form generator library using React and JSON Schema.",
   "main": "./dist/dynamic-form-lib.umd.js",
   "module": "./dist/dynamic-form-lib.es.js",
+  "style": "./dist/flexiformriseup.css",
   "files": [
-    "dist"
-  ],
+    "dist",
+    "dist/*.css"
+],
   "type": "module",
   "scripts": {
     "dev": "vite",

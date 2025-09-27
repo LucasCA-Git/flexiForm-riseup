@@ -1,6 +1,5 @@
-// src/index.jsx
-// Este é o ponto de entrada principal para a sua biblioteca (lib).
-import DynamicForm from './components/DynamicForm';
+// 1. Exporta o DynamicForm do arquivo dele (que usa export default)
+export { default as DynamicForm } from './components/DynamicForm';
 
-// Exporta o componente para que projetos externos possam usá-lo.
-export { DynamicForm };
+// 2. Exporta o Playground do arquivo dele (que usa export function)
+export { FlexiFormPlayground } from './FlexiFormPlayground'; 
