@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import DynamicForm from './DynamicForm';
+import { DynamicForm as RawDynamicForm } from './DynamicForm';
+// Import packaged CSS so consumers who import this component get styles automatically
+import '../../dist/flexiformriseup.css';
 
 const STORAGE_KEY = 'flexiform_saved_submissions';
 
@@ -51,7 +53,7 @@ export default function FormWithStorage({ schema, formId = 'default', onSubmit }
     <div className="content-wrapper-triple">
       <div className="form-preview-panel panel">
         <h2>Pré-visualização do Formulário</h2>
-        <DynamicForm
+        <RawDynamicForm
           schema={schema}
           formData={formData}
           onChange={handleChange}
