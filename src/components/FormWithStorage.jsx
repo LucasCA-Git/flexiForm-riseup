@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import RawDynamicForm from './DynamicForm';
 // Import packaged CSS so consumers who import this component get styles automatically
 import '../../dist/flexiformriseup.css';
@@ -7,7 +7,7 @@ const SCHEMA_KEY = 'flexiform_saved_schemas';
 
 const STORAGE_KEY = 'flexiform_saved_submissions';
 
-export default function FormWithStorage({ schema, formId = 'default', onSubmit, saveSchemaOnSubmit = true }) {
+function FormWithStorage({ schema, formId = 'default', onSubmit, saveSchemaOnSubmit = true }, ref) {
   const [formData, setFormData] = useState({});
   const [savedForms, setSavedForms] = useState([]);
   const [savedSchemas, setSavedSchemas] = useState([]);
@@ -65,6 +65,7 @@ export default function FormWithStorage({ schema, formId = 'default', onSubmit, 
         console.error('Erro ao salvar schema automaticamente:', e);
       }
     }
+
     if (onSubmit) onSubmit({ formData: data });
   };
 
@@ -144,6 +145,13 @@ export default function FormWithStorage({ schema, formId = 'default', onSubmit, 
 
   const deleteSchema = (id) => setSavedSchemas(prev => prev.filter(s => s.id !== id));
 
+  // Expose imperative methods to parent via ref
+  useImperativeHandle(ref, () => ({
+    saveSchema: () => saveSchema(),
+    getSavedSchemas: () => savedSchemas,
+    clearSavedSchemas: () => clearSavedSchemas(),
+  }));
+
   return (
     <div className="content-wrapper-triple">
       <div className="form-preview-panel panel">
@@ -172,7 +180,6 @@ export default function FormWithStorage({ schema, formId = 'default', onSubmit, 
           )}
         </div>
 
-        <div className="submissions-list">
           {savedForms.length === 0 ? (
             <p>Nenhum formulário submetido foi salvo na memória.</p>
           ) : (
@@ -189,6 +196,7 @@ export default function FormWithStorage({ schema, formId = 'default', onSubmit, 
           )}
         </div>
       </div>
-    </div>
-  );
+  )
 }
+
+export default forwardRef(FormWithStorage);
