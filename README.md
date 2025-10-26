@@ -20,6 +20,122 @@ npm install
 npm run dev
 ```
 
+---
+
+## Testando em um ambiente de cliente (passo a passo)
+
+Esta seção mostra como um cliente (outro projeto React) pode instalar, importar e testar rapidamente o `DynamicForm` publicado como pacote `flexiformriseup`.
+
+Obs: os comandos abaixo usam PowerShell (Windows). Em macOS/Linux substitua por bash/zsh.
+
+1) Criar/usar um projeto React mínimo (Vite)
+
+```powershell
+# se quiser criar um projeto novo de teste (opcional)
+npm create vite@latest client-test -- --template react
+cd client-test
+npm install
+```
+
+2) Instalar o pacote publicado e peer-deps
+
+```powershell
+# instalar o pacote publicado
+npm install flexiformriseup@latest
+
+# instalar peer dependencies que o componente usa (se o seu projeto ainda não as tiver)
+npm install react react-dom @rjsf/core @rjsf/validator-ajv8
+```
+
+3) Exemplo mínimo de uso (arquivo `src/App.jsx` no projeto cliente)
+
+```jsx
+import React from 'react';
+// Use o componente pronto para cliente (form + salvamento local)
+import { FormWithStorage } from 'flexiformriseup';
+
+const mySchema = {
+  title: 'Formulário de Teste',
+  type: 'object',
+  properties: {
+    nome: { type: 'string', title: 'Nome' },
+    email: { type: 'string', format: 'email', title: 'E-mail' }
+  }
+};
+
+export default function App() {
+  return (
+    <div style={{ maxWidth: 800, margin: '40px auto' }}>
+      <h1>Teste do DynamicForm</h1>
+
+      {/* Componente pronto: renderiza o form e o painel de formulários salvos */}
+      <FormWithStorage
+        schema={mySchema}
+        formId="cliente-teste"
+        onSubmit={(data) => console.log('submit', data.formData)}
+      />
+    </div>
+  );
+}
+```
+
+4) Rodar o projeto cliente
+
+```powershell
+npm run dev
+# abra no navegador o endereço mostrado pelo Vite (ex.: http://localhost:5173)
+```
+
+5) O que verificar
+
+- Visual: o formulário deve aparecer com o mesmo estilo (inputs, botões) e — se você passou `frameColor` — uma borda colorida ao redor. Se `showSchemaBadge` estiver true, verá um pequeno badge vermelho acima do form.
+- Submissão: preencha e clique em Submit. Veja no console do navegador o objeto `formData` enviado.
+- Cache local: o `DynamicForm` salva uma cópia no localStorage com chave `flexiform_cache_<formId>`. No console do navegador rode:
+
+```js
+JSON.parse(localStorage.getItem('flexiform_cache_cliente-teste'))
+```
+
+Isso deve retornar um objeto com `formData`, `schema`, `uiSchema` e `submittedAt`.
+
+6) Alternativas para testar sem publicar (local)
+
+- Usar `npm pack` para gerar um tarball e instalar no projeto cliente:
+
+```powershell
+# no diretório da lib
+npm pack
+# vai gerar flexiformriseup-1.0.1.tgz
+
+# no projeto cliente
+npm install ..\caminho\para\flexiformriseup-1.0.1.tgz
+```
+
+- Ou usar `npm link` para desenvolvimento em tempo real:
+
+```powershell
+# no diretório da lib
+npm link
+
+# no projeto cliente
+npm link flexiformriseup
+```
+
+7) Problemas comuns e como resolver
+
+- Se o componente não importar, verifique o nome do pacote (`flexiformriseup`) e o `node_modules` do projeto cliente.
+- Se ver diferenças de estilo, confirme que não há CSS global sobrescrevendo `.flexiform-form-wrapper` e que o projeto cliente usa a mesma versão de `@rjsf/core` compatível.
+- Se `localStorage` estiver vazio, confirme que `formId` foi passado e que o submit foi executado.
+
+---
+
+## Publicar / atualizar a biblioteca
+
+Passos rápidos já executados no repositório principal (para referência): commit → `npm version` → `git push --tags` → `npm publish --access public`.
+
+Para testar antes de publicar prefira `npm pack` ou `npm link` conforme mostrado acima.
+
+
 1. O *playground* estará acessível em http://localhost:5173/ (ou outra porta). Você poderá editar o JSON Schema na coluna da esquerda e ver o formulário se atualizar instantaneamente.
 
 ### **Onde Editar as Configurações:**
@@ -61,19 +177,39 @@ npm install react react-dom @rjsf/core @rjsf/validator-ajv8
 No código React do cliente (por exemplo, `App.jsx` ou `App.tsx`):
 
 ```js
-import React from "react";
-import { FlexiFormPlayground } from "flexiformriseup"; // importação da lib
-import "flexiformriseup/dist/flexiformriseup.css"; // importação do css da lib
+// Exemplo de uso em outro projeto
+import DynamicForm from 'flexiform-riseup';
 
-export default function App() {
+// Schema JSON
+const mySchema = {
+  "title": "Formulário de Contato",
+  "type": "object",
+  "properties": {
+    "nome": {
+      "type": "string",
+      "title": "Nome Completo"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "E-mail"
+    }
+  }
+};
+
+// Usando o componente
+function MyApp() {
   return (
     <div>
-      <h1>Exemplo com FlexiFormRiseup</h1>
-      <FlexiFormPlayground /> Conteudo da Lib flexiform
+      <h1>Meu Formulário</h1>
+      <DynamicForm 
+        schema={mySchema}
+        onSubmit={(data) => console.log(data)}
+        formId="contato"
+      />
     </div>
   );
 }
-
 
 ```
 ---
