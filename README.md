@@ -51,32 +51,35 @@ npm install react react-dom @rjsf/core @rjsf/validator-ajv8
 
 ```jsx
 import React from 'react';
-// Use o componente pronto para cliente (form + salvamento local)
 import { FormWithStorage } from 'flexiformriseup';
 
 const mySchema = {
-  title: 'Formulário de Teste',
+  title: 'Formulário de Contato',
   type: 'object',
   properties: {
-    nome: { type: 'string', title: 'Nome' },
+    nome: { type: 'string', title: 'Nome Completo' },
     email: { type: 'string', format: 'email', title: 'E-mail' }
   }
 };
 
-export default function App() {
+export default function MyApp() {
   return (
-    <div style={{ maxWidth: 800, margin: '40px auto' }}>
-      <h1>Teste do DynamicForm</h1>
-
-      {/* Componente pronto: renderiza o form e o painel de formulários salvos */}
+    <div style={{ maxWidth: 900, margin: '24px auto' }}>
+      <h1>Meu Formulário</h1>
       <FormWithStorage
         schema={mySchema}
-        formId="cliente-teste"
-        onSubmit={(data) => console.log('submit', data.formData)}
+        formId="contato"
+        onSubmit={(d) => console.log('submit', d.formData)}
       />
     </div>
   );
 }
+```
+
+Antes de rodar, importe o CSS do pacote no entry do projeto (ex: `src/main.jsx`):
+
+```js
+import 'flexiformriseup/dist/flexiformriseup.css';
 ```
 
 Nota: para aplicar os estilos incluídos no pacote, importe o CSS no entry do seu projeto cliente (por exemplo em `src/main.jsx`):
