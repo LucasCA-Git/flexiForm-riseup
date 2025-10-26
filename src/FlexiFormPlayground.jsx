@@ -1,20 +1,51 @@
 import React, { useState, useMemo, useEffect } from 'react';
-// CORREÇÃO: Importa o componente DynamicForm da sua Lib, 
-// provavelmente de './components/DynamicForm' (ou o caminho correto).
 import DynamicForm from './components/DynamicForm';
 import { initialSchema } from './initialSchema';
 import './index.css'; 
+import flexLogo from './icons/flexLogo.png';
 
 // Chave para armazenar o histórico no localStorage
 const STORAGE_KEY = 'flexiform_saved_submissions';
 
-// Renomeado de App para FlexiFormPlayground
-export function FlexiFormPlayground() { // Mantenha o export aqui!
+export function FlexiFormPlayground() {
   const [schemaText, setSchemaText] = useState(JSON.stringify(initialSchema, null, 2));
   const [formData, setFormData] = useState({});
   const [savedForms, setSavedForms] = useState([]); 
 
-  // ... (Restante da Lógica de Estado e Handlers) ...
+  // Carrega formulários salvos do localStorage ao iniciar
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      setSavedForms(JSON.parse(saved));
+    }
+  }, []);
+
+  // Salva no localStorage sempre que savedForms mudar
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(savedForms));
+  }, [savedForms]);
+
+  // Função para salvar apenas o JSON Schema atual (sem respostas)
+  const saveSchema = () => {
+    try {
+      const parsed = JSON.parse(schemaText);
+      const timestamp = new Date().toLocaleString();
+      const newSchemaEntry = {
+        id: Date.now(),
+        timestamp,
+        schemaTitle: parsed.title || 'Schema Sem Título',
+        data: {},
+        schemaJson: schemaText,
+        schemaUsed: parsed,
+        uiSchema: {}
+      };
+
+      setSavedForms(prev => [newSchemaEntry, ...prev]);
+      alert(`Schema salvo com sucesso! (${timestamp})`);
+    } catch (err) {
+      alert('Não foi possível salvar: JSON inválido. Corrija a sintaxe antes de salvar.');
+    }
+  };
 
   const schema = useMemo(() => {
     try {
@@ -31,12 +62,15 @@ export function FlexiFormPlayground() { // Mantenha o export aqui!
       timestamp,
       schemaTitle: schema.title || "Formulário Sem Título",
       data: formData,
-      schemaUsed: schema
+      // AQUI ESTÁ A CORREÇÃO: Salva o JSON schema COMPLETO que foi usado
+      schemaJson: schemaText, // Isso salva o JSON inteiro que está no editor
+      schemaUsed: schema,     // E também o schema parseado
+      uiSchema: {}
     };
 
     setSavedForms(prevForms => [newSubmission, ...prevForms]);
     setFormData({});
-    console.log("Dados Submetidos e Salvos:", newSubmission.data);
+    console.log("Dados Submetidos e Salvos:", newSubmission);
     alert(`Formulário salvo com sucesso! (${timestamp})`); 
   };
 
@@ -47,27 +81,58 @@ export function FlexiFormPlayground() { // Mantenha o export aqui!
   const isSchemaValid = schema.title !== "JSON Inválido";
   
   const clearSavedForms = () => {
-      // Usando uma modal simples/prompt como fallback para window.confirm
-      if (window.prompt("Digite 'SIM' para apagar todo o histórico de formulários salvos:") === 'SIM') {
-          setSavedForms([]);
-          localStorage.removeItem(STORAGE_KEY);
-      }
+    if (window.prompt("Digite 'SIM' para apagar todo o histórico de formulários salvos:") === 'SIM') {
+      setSavedForms([]);
+    }
+  };
+
+  const loadSchemaFromSaved = (savedForm) => {
+    // Carrega o JSON schema de volta no editor
+    setSchemaText(savedForm.schemaJson);
+    // Carrega os dados no formulário
+    setFormData(savedForm.data);
+  };
+
+  // Renderiza o schema salvo por completo em formato legível (pretty-printed)
+  const renderCompactSchema = (schemaJson) => {
+    if (!schemaJson) return '';
+    try {
+      const parsed = JSON.parse(schemaJson);
+      return JSON.stringify(parsed, null, 2);
+    } catch (e) {
+      // se não for JSON válido, retorna o texto original (sem truncar)
+      return schemaJson;
+    }
   };
 
   return (
-    <div className="app-container">
-      <h1>FlexiForm-RiseUp: Playground de Demonstração</h1>
+    <>
+      <header className="topbar">
+        <div className="app-container">
+          <div className="playground-header">
+            <img src={flexLogo} alt="FlexiForm" />
+            <div className="title">FlexiForm Home</div>
+          </div>
+        </div>
+      </header>
+
+      <div className="app-container">
       
       <div className="content-wrapper-triple">
         
         {/* COLUNA 1: Editor de JSON Schema */}
         <div className="json-editor-panel panel">
           <h2>JSON Schema Editor</h2>
-          <textarea
-            value={schemaText}
-            onChange={(e) => setSchemaText(e.target.value)}
-            style={{ width: '100%', minHeight: '400px', fontFamily: 'monospace' }}
-          />
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            <textarea
+              value={schemaText}
+              onChange={(e) => setSchemaText(e.target.value)}
+            />
+            <div style={{marginTop: '8px', display: 'flex', gap: '8px'}}>
+              <button onClick={saveSchema}>Salvar Schema</button>
+              <button onClick={() => { setSchemaText(JSON.stringify(initialSchema, null, 2)); }}>Restaurar Padrão</button>
+            </div>
+          </div>
           {!isSchemaValid && (
              <p style={{color: 'red'}}>Erro: JSON Schema Inválido. Corrija a sintaxe.</p>
           )}
@@ -82,24 +147,25 @@ export function FlexiFormPlayground() { // Mantenha o export aqui!
               schema={schema} 
               formData={formData}
               onChange={handleChange}
-              onSubmit={handleSubmit} 
+              onSubmit={handleSubmit}
+              formId="playground"
             />
           ) : (
             <p>O formulário não pode ser carregado devido a erros no JSON Schema.</p>
           )}
           
-          <h3 style={{marginTop: '20px'}}>Dados Atuais (formData)</h3>
-          <pre style={{ backgroundColor: '#f4f4f4', padding: '10px', overflowX: 'auto', borderRadius: '4px' }}>
+          <h3>Dados Atuais (formData)</h3>
+          <pre>
             {JSON.stringify(formData, null, 2)}
           </pre>
         </div>
         
-        {/* COLUNA 3: Formulários Salvos na Memória (localStorage) */}
+        {/* COLUNA 3: Formulários Salvos */}
         <div className="saved-forms-panel panel">
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <div className="panel-header">
                 <h2>Formulários Salvos ({savedForms.length})</h2>
                 {savedForms.length > 0 && (
-                    <button onClick={clearSavedForms} style={{padding: '5px 10px', cursor: 'pointer'}}>
+                    <button onClick={clearSavedForms}>
                         Limpar Todos
                     </button>
                 )}
@@ -114,9 +180,23 @@ export function FlexiFormPlayground() { // Mantenha o export aqui!
                             <summary>
                                 <strong>{form.schemaTitle}</strong> - {form.timestamp}
                             </summary>
-                            <pre style={{ backgroundColor: '#fff', border: '1px dotted #ccc', padding: '10px', marginTop: '10px' }}>
+                            <div className="form-actions">
+                              <button onClick={() => loadSchemaFromSaved(form)}>
+                                Carregar Schema e Dados
+                              </button>
+                            </div>
+                            
+                            <h4>Dados do Formulário Preenchido:</h4>
+                            <pre className="form-data">
                                 {JSON.stringify(form.data, null, 2)}
                             </pre>
+                            
+                            <details>
+                              <summary><strong>JSON Schema Usado para Criar este Formulário:</strong></summary>
+                              <pre className="schema-json">
+                                {renderCompactSchema(form.schemaJson)}
+                              </pre>
+                            </details>
                         </details>
                     ))
                 )}
@@ -124,5 +204,6 @@ export function FlexiFormPlayground() { // Mantenha o export aqui!
         </div>
       </div>
     </div>
+    </>
   );
 }
