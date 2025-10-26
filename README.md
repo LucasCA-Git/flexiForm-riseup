@@ -282,5 +282,3 @@ import 'flexiformriseup/dist/flexiformriseup.css';
 
 // ... use FormWithStorage como mostrado nos exemplos acima
 ```
-
-Se quiser que eu adicione uma seção com snippets de API (por exemplo: mostrar como usar o `ref` para chamar `saveSchema()` passo a passo) eu adiciono na sequência.
