@@ -79,6 +79,12 @@ export default function App() {
 }
 ```
 
+Nota: para aplicar os estilos incluídos no pacote, importe o CSS no entry do seu projeto cliente (por exemplo em `src/main.jsx`):
+
+```js
+import 'flexiformriseup/dist/flexiformriseup.css';
+```
+
 4) Rodar o projeto cliente
 
 ```powershell
