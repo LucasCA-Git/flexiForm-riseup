@@ -2,7 +2,7 @@
 
 O **FlexiForm-RiseUp** funciona como um **Playground** (para desenvolvimento e demonstração) e como uma **Lib** (para uso em outros projetos React).
 
-## **1\. Guia para o Desenvolvedor (Playground)**
+## **1. Guia para o Desenvolvedor (Playground)**
 
 Se você está dentro do diretório FLEXIFORM-RISEUP e quer rodar o editor JSON, o formulário de demonstração e o console de memória (seu ambiente de trabalho), siga estes passos:
 
@@ -157,22 +157,22 @@ Para testar antes de publicar prefira `npm pack` ou `npm link` conforme mostrado
 
 ---
 
-## **2\. Guia para o Consumidor (Uso em Projeto Externo)**
+## **2. Guia para o Consumidor (Uso em Projeto Externo)**
 
-Se você estiver em um **novo projeto React** e quiser utilizar o componente \<FlexiFormPlayground />, siga este processo.
+Se você estiver em um **novo projeto React** e quiser utilizar o componente <FlexiFormPlayground />, siga este processo.
 
 A Lib **FlexiForm-RiseUp** não inclui o React ou o RJSF em seu código final, sendo necessário instalá-los separadamente.
 
 ### **Instalação Completa**
 
-### **1\. Instalar a biblioteca**
+### **1. Instalar a biblioteca**
 
 No projeto React do cliente:
 
 ```bash
 npm install flexiformriseup
 ```
-### **2\. Instalar peer dependencies (se ainda não tiver no projeto)**
+### **2. Instalar peer dependencies (se ainda não tiver no projeto)**
 
 Essas libs não vêm junto, porque estão listadas como `peerDependencies` no seu `package.json` (assim o cliente pode controlar as versões):
 
@@ -181,7 +181,7 @@ npm install react react-dom @rjsf/core @rjsf/validator-ajv8
 ```
 ---
 
-### **3\. Importar e usar o componente**
+### **3. Importar e usar o componente**
 
 No código React do cliente (por exemplo, `App.jsx` ou `App.tsx`):
 
@@ -223,7 +223,7 @@ function MyApp() {
 ```
 ---
 
-### **4\. Rodar o projeto**
+### **4. Rodar o projeto**
 
 No projeto do cliente:
 Dependendo da stack
@@ -231,3 +231,56 @@ Dependendo da stack
 ```bash
 npm run dev
 ```
+
+---
+
+## Estrutura dos Componentes e Diferenças
+
+Esta seção explica, de forma prática, a responsabilidade e quando usar cada peça do código presente neste repositório.
+
+- `DynamicForm` (baixo nível — renderer)
+  - Responsabilidade: é o wrapper leve em torno do `@rjsf/core` que recebe um `schema` (JSON Schema), `formData`, `uiSchema` e callbacks (`onChange`, `onSubmit`) e renderiza apenas o formulário.
+  - Uso: importe quando você só precisa renderizar um formulário a partir de um schema e controlar armazenamento/UX externamente.
+  - Export/expectativa: é pensado para ser reutilizável e não gerencia localStorage nem UI de listagem. Pode aceitar props visuais (ex.: `frameColor`, `showSchemaBadge`) para customização.
+
+- `FormWithStorage` (comportamento pronto para cliente)
+  - Responsabilidade: empacota `DynamicForm` e adiciona comportamento de "playground lite" — gestão de submissões em memória/localStorage, painel de visualização e (opcional) persistência de schemas.
+  - Uso: essa é a opção que oferecemos para consumidores que querem o formulário já acompanhado de um painel de "salvados" sem precisar implementar a lógica de persistência. Ideal para demos, integrações rápidas e protótipos.
+  - Funcionalidades principais:
+    - Persistência de submissões em localStorage com chave `flexiform_saved_submissions`.
+    - Persistência de schemas em localStorage com chave `flexiform_saved_schemas`.
+    - Opção `saveSchemaOnSubmit` (por padrão true na implementação atual): salva o schema automaticamente quando uma submissão é realizada.
+    - API imperativa (quando disponível) via `ref`: métodos expostos podem incluir `saveSchema()`, `getSavedSchemas()` e `clearSavedSchemas()` — chame com `const ref = useRef(); <FormWithStorage ref={ref} />` e depois `ref.current.saveSchema()` (se a versão instalada suportar).
+    - Empacotado para consumidores: `dist/flexiformriseup.css` acompanha a lib e pode ser importado no projeto consumidor para manter estilos.
+
+- `FlexiFormPlayground` (full playground — editor + preview)
+  - Responsabilidade: é a aplicação de desenvolvimento com o editor JSON, preview ao vivo, painel de schemas e ferramentas para edição/depuração; não é ideal para uso direto em produção pelo cliente final.
+  - Uso: abrir localmente (rodar `npm run dev`) para editar e testar schemas, ver o comportamento, e copiar um schema pronto para usar no projeto do cliente.
+
+Quando usar cada um (resumo):
+- Quer só renderizar um formulário no seu app e controlar armazenamento/UX você mesmo → use `DynamicForm`.
+- Quer uma solução pronta com painel de submissões e gerenciamento de schemas → use `FormWithStorage`.
+- Quer desenvolver/editar schemas interativamente e testar várias configurações → abra o `FlexiFormPlayground` localmente (playground do repositório).
+
+Compatibilidade e notas importantes
+- CSS: para garantir aparência idêntica ao playground, importe `import 'flexiformriseup/dist/flexiformriseup.css';` no entry (`src/main.jsx`) do projeto cliente.
+- Peer dependencies: o pacote espera que o cliente instale `@rjsf/core` e `@rjsf/validator-ajv8` (ver `package.json`).
+- API imperativa (`saveSchema`) pode depender da versão publicada — se `saveSchema()` não existir na versão instalada, use o fallback de salvar diretamente no `localStorage` sob `flexiform_saved_schemas`.
+
+Chaves de localStorage usadas pela biblioteca
+
+- `flexiform_saved_submissions` — array de submissões salvas (cada item contém id, timestamp, schemaTitle, data, schemaUsed).
+- `flexiform_saved_schemas` — array de schemas salvos (cada item contém id, timestamp, title, schema).
+- `flexiform_cache_<formId>` — (usado pelo `DynamicForm`/cache interno) cópia rápida do estado do formulário para restauração (se implementado).
+
+Exemplo rápido de import para projeto cliente
+
+```js
+import React from 'react';
+import { FormWithStorage } from 'flexiformriseup';
+import 'flexiformriseup/dist/flexiformriseup.css';
+
+// ... use FormWithStorage como mostrado nos exemplos acima
+```
+
+Se quiser que eu adicione uma seção com snippets de API (por exemplo: mostrar como usar o `ref` para chamar `saveSchema()` passo a passo) eu adiciono na sequência.
