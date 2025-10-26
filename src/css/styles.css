@@ -1,0 +1,5 @@
+/* Arquivo wrapper para estilos do playground
+   Ele importa o arquivo principal src/index.css para manter compatibilidade
+   e permite que o HTML referencie um caminho mais organizado (/src/css/styles.css).
+*/
+@import '../index.css';
