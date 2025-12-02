@@ -1,22 +1,6 @@
 {
   "title": "Formulário de Contato",
   "description": "Formulário configurável via JSON",
-  "theme": {
-    "colors": {
-      "background": "#2e1065",
-      "primary": "#8b5cf6",
-      "primaryDark": "#7c3aed",
-      "primaryLight": "#a78bfa",
-      "accent": "#6d28d9",
-      "surface": "#ffffff",
-      "surfaceSecondary": "#f5f3ff",
-      "textMain": "#1f2937",
-      "textMuted": "#6b7280",
-      "error": "#ef4444",
-      "errorBg": "#fef2f2",
-      "success": "#10b981"
-    }
-  },
   "components": [
     {
       "type": "nome",
@@ -34,7 +18,6 @@
       "visible": true
     },
     {
-      
       "id": "Phone",
       "label": "Telefone",
       "type": "phone",
@@ -46,12 +29,7 @@
       "type": "select",
       "id": "assunto",
       "label": "Assunto",
-      "options": [
-        "Dúvida",
-        "Sugestão",
-        "Reclamação",
-        "Elogio"
-      ],
+      "options": ["Dúvida", "Sugestão", "Reclamação", "Elogio"],
       "required": true,
       "visible": true
     },
@@ -106,36 +84,32 @@
       "visible": true,
       "rows": 5
     },
-{
-  "type": "ImgUpload",
-  "id": "problema_imagem",
-  "label": "Descreva seu problema e anexe uma imagem",
-  "required": true,
-  "visible": true
-},
-{
-  "type": "Cep",  
-  "id": "endereco_cep",
-  "label": "CEP (Código Postal)",
-  "placeholder": "99999-999",
-  "required": true,
-  "visible": true
-},
-{
-  "type": "Escolha",
-  "id": "Escolha",
-  "label": "Você é Estudante?",
-  "required": true
-},
- {
-  "type": "checkbox",
-  "id": "Termos",
-  "label": "Eu aceito os Termos de Serviço.",
-  "required": true
-}
-
-  
-
+    {
+      "type": "ImgUpload",
+      "id": "problema_imagem",
+      "label": "Descreva seu problema e anexe uma imagem",
+      "required": true,
+      "visible": true
+    },
+    {
+      "type": "Cep",
+      "id": "endereco_cep",
+      "label": "CEP (Código Postal)",
+      "placeholder": "99999-999",
+      "required": true,
+      "visible": true
+    },
+    {
+      "type": "Escolha",
+      "id": "Escolha",
+      "label": "Você é Estudante?",
+      "required": true
+    },
+    {
+      "type": "checkbox",
+      "id": "Termos",
+      "label": "Eu aceito os Termos de Serviço.",
+      "required": true
+    }
   ]
 }
-

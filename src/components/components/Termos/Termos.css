@@ -1,0 +1,35 @@
+/* src/components/Checkbox/Checkbox.css */
+
+.form-field-checkbox {
+  /* Garante que o checkbox tenha espaço abaixo e ocupe a largura total */
+  margin-bottom: 15px;
+  display: flex; /* Permite alinhar o input com o label */
+  align-items: flex-start; /* Alinha o input no topo, se o label for longo */
+}
+
+.form-checkbox-input {
+  /* Ajuste básico do input checkbox nativo */
+  width: 18px;
+  height: 18px;
+  margin-right: 10px; /* Espaço entre o quadrado e o texto do label */
+  /* Remove a margem superior/inferior padrão do input para alinhamento */
+  margin-top: 2px; 
+}
+
+.form-checkbox-label {
+  /* Garante que o texto se ajuste e seja clicável */
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.5; /* Boa leitura */
+}
+
+/* Opcional: Estilo ao passar o mouse */
+.form-field-checkbox:hover .form-checkbox-label {
+  color: #007bff; /* Exemplo de cor de destaque */
+}
+
+/* Estilos de acessibilidade/foco */
+.form-checkbox-input:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}

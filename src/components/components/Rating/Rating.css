@@ -1,0 +1,30 @@
+.rating-field {
+  margin-bottom: 20px;
+}
+
+.rating-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.stars-container {
+  font-size: 28px;
+  color: #ccc; /* Cor das estrelas não selecionadas */
+}
+
+.star {
+  cursor: pointer;
+  transition: color 0.2s;
+  user-select: none; /* Impede seleção de texto */
+  padding: 0 2px;
+}
+
+.star.selected {
+  color: gold; /* Cor das estrelas selecionadas ou no hover */
+}
+
+.stars-container:hover .star:hover ~ .star {
+    /* Efeito para garantir que a estrela e as anteriores fiquem douradas */
+    color: #ccc;
+}
