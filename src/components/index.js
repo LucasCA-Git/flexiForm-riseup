@@ -3,7 +3,6 @@ import Email from './Email/Email';
 import Nome from './Nome/Nome';
 import Textarea from './Textarea/Textarea';
 import Select from './Select/Select';
-import SelectMultiple from './SelectMultiple/SelectMultiple';
 import Checkbox from './Checkbox/Checkbox';
 import CheckboxGroup from './CheckboxGroup/CheckboxGroup';
 import Password from './Password/Password';
@@ -20,7 +19,6 @@ import Escolha from './Escolha/Escolha';
 import Address from './Address/Address';
 import Moeda from './Moeda/Moeda';
 import Habilidades from './Habilidades/Habilidades';
-import ListaDinamica from './ListaDinamica/ListaDinamica';
 import Rating from './Rating/Rating';
 
 
@@ -33,7 +31,6 @@ export const componentRegistry = {
   nome: Nome,
   textarea: Textarea,
   select: Select,
-  selectMultiple: SelectMultiple,
   checkbox: Checkbox,
   checkboxGroup: CheckboxGroup,
   phone: Phone,
@@ -50,16 +47,15 @@ export const componentRegistry = {
   Address: Address,
   Moeda: Moeda,
   Habilidades: Habilidades,
-  ListaDinamica: ListaDinamica,
   Rating: Rating
 
 
   
 };
 
-export { Input, Email, Nome, Textarea, Select, SelectMultiple, Checkbox,
+export { Input, Email, Nome, Textarea, Select, Checkbox,
    CheckboxGroup, Phone, Password, ImgUpload, Cep, Cpf, Url, Idade, DataNasci, Genero, Termos, 
-   Escolha, Address, Moeda, Habilidades,ListaDinamica,Rating};
+   Escolha, Address, Moeda, Habilidades,Rating};
 
 export default componentRegistry;
 

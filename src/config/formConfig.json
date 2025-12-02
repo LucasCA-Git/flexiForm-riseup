@@ -34,13 +34,96 @@
       "visible": true
     },
     {
-      
+      "type": "textarea",
+      "id": "mensagem",
+      "label": "Mensagem",
+      "placeholder": "Digite sua mensagem aqui...",
+      "required": true,
+      "visible": true,
+      "rows": 5
+    },
+    {
+      "type": "Address",
+      "id": "endereco_residencial",
+      "label": "Localização e Endereço",
+      "required": true,
+      "visible": true
+    },
+    {
+      "type": "ImgUpload",
+      "id": "problema_imagem",
+      "label": "Descreva seu problema e anexe uma imagem",
+      "required": true,
+      "visible": true
+    },
+    {
+      "type": "Password",
+      "id": "Password",
+      "label": "password",
+      "required": true,
+      "visible": true,
+      "minLength": 8,
+      "showComplexityHint": true,
+      "customRegex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$"
+    },
+    {
+      "type": "Url",
+      "id": "link_projeto",
+      "label": "Link do Projeto (URL)",
+      "placeholder": "https://www.meuprojeto.com.br",
+      "required": false,
+      "visible": true
+    },
+    {
+      "type": "Cep",
+      "id": "endereco_cep",
+      "label": "CEP (Código Postal)",
+      "placeholder": "99999-999",
+      "required": true,
+      "visible": true
+    },
+    {
       "id": "Phone",
       "label": "Telefone",
       "type": "phone",
       "placeholder": "(00) 00000-0000",
       "required": true,
       "visible": true
+    },
+    {
+      "type": "Cpf",
+      "id": "numero_cpf",
+      "label": "CPF",
+      "placeholder": "999.999.999-99",
+      "required": true,
+      "visible": true
+    },
+    {
+      "type": "Moeda",
+      "id": "valor_orcamento",
+      "label": "Orçamento Sugerido",
+      "required": true
+    },
+    {
+      "type": "Idade",
+      "id": "Idade",
+      "label": "Idade",
+      "required": true,
+      "min": 18,
+      "max": 65
+    },
+    {
+      "type": "Data",
+      "id": "DataNasc",
+      "label": "Data de Nascimento",
+      "required": true,
+      "visible": true
+    },
+    {
+      "type": "Habilidades",
+      "id": "tecnologias_dominadas",
+      "label": "Tecnologias que você domina",
+      "required": false
     },
     {
       "type": "select",
@@ -54,6 +137,20 @@
       ],
       "required": true,
       "visible": true
+    },
+    {
+      "type": "Genero",
+      "id": "Genero",
+      "label": "Gênero/Identidade",
+      "required": true,
+      "visible": true
+    },
+    {
+      "type": "Rating",
+      "id": "avaliacao_produto",
+      "label": "Avaliação do Produto",
+      "maxStars": 5,
+      "required": true
     },
     {
       "type": "checkboxGroup",
@@ -82,44 +179,16 @@
       "layout": "vertical"
     },
     {
-      "type": "textarea",
-      "id": "mensagem",
-      "label": "Mensagem",
-      "placeholder": "Digite sua mensagem aqui...",
-      "required": true,
-      "visible": true,
-      "rows": 5
+      "type": "Escolha",
+      "id": "Escolha",
+      "label": "Você é Estudante?",
+      "required": true
     },
-{
-  "type": "ImgUpload",
-  "id": "problema_imagem",
-  "label": "Descreva seu problema e anexe uma imagem",
-  "required": true,
-  "visible": true
-},
-{
-  "type": "Cep",  
-  "id": "endereco_cep",
-  "label": "CEP (Código Postal)",
-  "placeholder": "99999-999",
-  "required": true,
-  "visible": true
-},
-{
-  "type": "Escolha",
-  "id": "Escolha",
-  "label": "Você é Estudante?",
-  "required": true
-},
- {
-  "type": "checkbox",
-  "id": "Termos",
-  "label": "Eu aceito os Termos de Serviço.",
-  "required": true
-}
-
-  
-
+    {
+      "type": "Termos",
+      "id": "Termos",
+      "label": "Eu aceito os Termos de Serviço.",
+      "required": true
+    }
   ]
 }
-
