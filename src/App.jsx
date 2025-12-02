@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
-import { componentRegistry } from './components';
-
+import { componentRegistry } from './components/index.js';
 import formConfig from './config/formConfig.json';
-
 import './App.css';
-
 import FlexiFormLogo from './assets/FlexiForm_logo.png';
 
 // --- Função Auxiliar: Inicializa o formData com base na configuração ---
