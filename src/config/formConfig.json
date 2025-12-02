@@ -56,22 +56,6 @@
       "visible": true
     },
     {
-      "type": "selectMultiple",
-      "id": "interesses",
-      "label": "Áreas de Interesse (múltipla escolha)",
-      "options": [
-        "Tecnologia",
-        "Design",
-        "Marketing",
-        "Vendas",
-        "Suporte",
-        "Desenvolvimento"
-      ],
-      "required": false,
-      "visible": true,
-      "placeholder": "Selecione uma ou mais áreas"
-    },
-    {
       "type": "checkboxGroup",
       "id": "preferencias",
       "label": "Preferências de Contato",
